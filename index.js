@@ -8,7 +8,7 @@ var bodyParser = require('body-parser')
 
 
 
-const base_url = "http://10.104.9.113:3000"
+const base_url = "http://node56580-env-8359299.proen.app.ruk-com.cloud:11721"
 
 
 app.set('view engine', 'ejs')
