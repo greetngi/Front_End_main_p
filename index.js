@@ -5,12 +5,13 @@ const express = require('express')
 const axios = require('axios')
 const app = express()
 var bodyParser = require('body-parser')
+const path = require('path');
 
 
 
 const base_url = "http://node56580-env-8359299.proen.app.ruk-com.cloud:11721"
 
-
+app.set('view',path.join(__dirname,"/public/views"))
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended:false}))
