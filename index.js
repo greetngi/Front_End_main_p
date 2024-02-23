@@ -2,83 +2,87 @@ const express = require('express')
 const axios = require('axios')
 const app = express()
 var bodyParser = require('body-parser')
-const path = require('path');
+const path = require("path")
 
+
+
+//const base_url = "http://localhost:3000"
 const base_url = "http://node56583-env-8359299.proen.app.ruk-com.cloud"
-
-app.set('view',path.join(__dirname,"/public/views"))
+app.set("views", path.join(__dirname, "/public/views"))
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended:false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', async(req,res)=>{
-   try{
-    const respones = await axios.get(base_url + '/books')
-    res.render("books",{books:respones.data})
-   }catch(err){
-    console.error(err)
-    res.status(500).send('Error')
-   }
-})
-
-app.get('/book/:id',async(req,res)=>{
-    try{
-        const respones = await axios.get(base_url + '/books/' + req.params.id)
-        res.render("book",{book:respones.data})
-       }catch(err){
+app.get('/', async(req, res) => {
+    try {
+        const respones = await axios.get(base_url + '/books')
+        res.render("books", { books: respones.data })
+        console.log("Get Books")
+    } catch (err) {
         console.error(err)
-        res.status(500).send('Error')
-       }
-})
-
-app.get('/create',(req,res)=>{ // show create desktop
-    res.render("create")
-})
-
-app.post('/create',async(req,res)=>{
-   try{
-    const data = { title: req.body.title , author: req.body.author}
-    await axios.post(base_url + '/books' ,data)
-    res.redirect('/')
-   }catch(err){
-    console.error(err)
-    res.status(500).send('Error')
-   }
-})
-
-app.get('/update/:id',async(req,res)=>{
-    try{
-        const respones = await axios.get(
-            base_url + '/books/' + req.params.id) 
-            res.render('update',{book: respones.data})
-  } catch(err){
-      console.error(err)
-      res.status(500).send('Error')
+        res.status(500).send('Error1')
     }
 })
 
-app.post('/update/:id',async(req,res)=>{
-   try{
-    const data = { title: req.body.title , author: req.body.author}
-    await axios.put(base_url + '/books/' + req.params.id,data)
-    res.redirect('/')
-   }catch(err){
-    console.error(err)
-    res.status(500).send('Error')
-   }
+app.get('/book/:id', async(req, res) => {
+    try {
+        const respones = await axios.get(base_url + '/books/' + req.params.id)
+        res.render("book", { book: respones.data })
+        console.log("Get Books 2 ")
+    } catch (err) {
+        console.error(err)
+        res.status(500).send('Error2')
+    }
 })
 
-app.get('/delete/:id',async(req,res)=>{
-   try{
-    await axios.delete(base_url + '/books/' + req.params.id)
-    res.redirect('/')
-   }catch(err){
-    console.error(err)
-    res.status(500).send('Error')
-   }
+app.get('/create', (req, res) => { // show create desktop
+    res.render("create")
 })
 
-app.listen(5500,()=> console.log(`Listening on port 5500`))
+app.post('/create', async(req, res) => {
+    try {
+        const data = { title: req.body.title, author: req.body.author }
+        await axios.post(base_url + '/books', data)
+        res.redirect('/')
+    } catch (err) {
+        console.error(err)
+        res.status(500).send('Error3')
+    }
+})
+
+app.get('/update/:id', async(req, res) => {
+    try {
+        const respones = await axios.get(
+            base_url + '/books/' + req.params.id)
+        res.render('update', { book: respones.data })
+    } catch (err) {
+        console.error(err)
+        res.status(500).send('Error4')
+    }
+})
+
+app.post('/update/:id', async(req, res) => {
+    try {
+        const data = { title: req.body.title, author: req.body.author }
+        await axios.put(base_url + '/books/' + req.params.id, data)
+        res.redirect('/')
+    } catch (err) {
+        console.error(err)
+        res.status(500).send('Error5')
+    }
+})
+
+app.get('/delete/:id', async(req, res) => {
+    try {
+        await axios.delete(base_url + '/books/' + req.params.id)
+        res.redirect('/')
+    } catch (err) {
+        console.error(err)
+        res.status(500).send('Error6')
+    }
+})
+
+app.listen(5500, () => console.log(`Listening on port 5500`))
